@@ -1,0 +1,244 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* Bottom fade-to-dark gradient — CSS only, no z-index conflict */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 12rem;
+  background: linear-gradient(to bottom, transparent, var(--bg, #090909));
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Background blur overlay — sits above bg layers, below content */
+.backgroundBlur {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Background Galaxy Layer */
+.bgGalaxy {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Background ShapeGrid Layer overlaid */
+.bgShapeGrid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  mix-blend-mode: screen;
+  pointer-events: auto;
+}
+
+/* Content */
+.content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 0 2rem;
+  max-width: 900px;
+  pointer-events: auto;
+  margin-top: -2rem;
+}
+
+/* Availability badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.01em;
+  animation: fadeIn 1s ease 0.5s both;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: #5af78e;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #5af78e;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+/* Headline — breaks out of the 900px content container to fill the full viewport */
+.headline {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  margin-top: 0;
+  margin-bottom: -100px;
+  padding: 0;
+  display: block;
+  overflow: visible;
+}
+
+.name {
+  font-size: clamp(4rem, 12vw, 9rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 0.95 !important;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Sub text */
+.sub {
+  font-size: clamp(1rem, 2vw, 1.25rem) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-weight: 300 !important;
+  letter-spacing: -0.01em !important;
+  max-width: 520px;
+  line-height: 1.6 !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+/* CTA buttons */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeInUp 1s ease 1.5s both;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.75rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: #090909;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: -0.01em;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.btnPrimary:hover {
+  background: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(255, 255, 255, 0.25);
+}
+
+.btnPrimary svg {
+  transition: transform 0.3s ease;
+}
+
+.btnPrimary:hover svg {
+  transform: translateX(3px);
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8rem 1.75rem;
+  background: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  font-weight: 400;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  letter-spacing: -0.01em;
+}
+
+.btnSecondary:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Scroll indicator */
+.scrollIndicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 10;
+  animation: fadeIn 1.5s ease 2s both;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.5));
+  animation: scrollAnim 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollAnim {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+.scrollLabel {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}

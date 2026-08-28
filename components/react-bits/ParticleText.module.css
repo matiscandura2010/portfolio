@@ -1,0 +1,13 @@
+.particleText {
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  font-family: var(--font-family);
+  color: var(--particle-color);
+  position: relative;
+  display: inline-block;
+  /* Simple text shadow for glow effect */
+}
+
+.glow {
+  text-shadow: 0 0 8px var(--highlight-color), 0 0 12px var(--highlight-color);
+}

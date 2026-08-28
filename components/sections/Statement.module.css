@@ -1,0 +1,86 @@
+.statementSection {
+  position: relative;
+  height: 280vh;
+  background: #000000;
+  z-index: 50;
+}
+
+.stickyTrack {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlayBlack {
+  position: absolute;
+  inset: 0;
+  background: #000000;
+  z-index: 1;
+}
+
+.container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.statementBox {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  will-change: transform, opacity, filter;
+}
+
+.question {
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-transform: none;
+}
+
+.punchline {
+  font-size: clamp(3.2rem, 9vw, 7.5rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin: 0;
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+}
+
+.accentDot {
+  color: #7c5cfc;
+  display: inline-block;
+  margin-left: 0.1rem;
+}
+
+@media (max-width: 768px) {
+  .statementSection {
+    height: 250vh;
+  }
+
+  .statementBox {
+    gap: 0.75rem;
+  }
+}

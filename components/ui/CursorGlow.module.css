@@ -1,0 +1,18 @@
+.glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 400px;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.028) 0%,
+    rgba(255, 255, 255, 0.012) 30%,
+    transparent 70%
+  );
+  will-change: transform;
+  mix-blend-mode: normal;
+}

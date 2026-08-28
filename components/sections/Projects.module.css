@@ -1,0 +1,42 @@
+.projects {
+  background: transparent;
+  padding: 8rem 0;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.titleWrapper {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0 auto 5rem;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
