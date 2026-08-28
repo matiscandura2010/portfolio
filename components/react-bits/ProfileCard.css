@@ -463,8 +463,14 @@
 }
 
 @media (max-width: 768px) {
+  .pc-card-wrapper {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
   .pc-card {
-    height: 430px;
+    height: 440px;
+    border-radius: 22px;
   }
 
   .pc-details {
@@ -477,5 +483,39 @@
 
   .pc-details p {
     font-size: 12px;
+  }
+
+  .pc-user-info {
+    --ui-inset: 12px;
+    padding: 8px 12px;
+    border-radius: 16px;
+  }
+
+  .pc-mini-avatar {
+    width: 34px;
+    height: 34px;
+  }
+
+  .pc-handle {
+    font-size: 12.5px;
+  }
+
+  .pc-status {
+    font-size: 11px;
+  }
+
+  .pc-contact-btn {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 380px) {
+  .pc-card-wrapper {
+    max-width: 290px;
+  }
+
+  .pc-card {
+    height: 400px;
   }
 }

@@ -59,7 +59,7 @@ export default function About() {
 
         {/* Content grid */}
         <div className={styles.grid}>
-          {/* Left: Interactive Live Code Editor + Output Box + Stats */}
+          {/* Left Column: Intro + Desktop Code Editor + Stats */}
           <div className={styles.textBlock}>
             <div className={styles.headerInfo}>
               <h3 className={styles.sectionSubtitle}>
@@ -71,27 +71,29 @@ export default function About() {
               </p>
             </div>
 
-            {/* Live Interactive Code Sandbox & Preview */}
-            <LiveCodeEditor />
+            {/* Live Interactive Code Sandbox & Preview (Desktop Only) */}
+            <div className={styles.desktopCodeEditor}>
+              <LiveCodeEditor />
+            </div>
 
             {/* Stats */}
             <div className={styles.stats}>
-              <div className={styles.stat}>
+              <div className={styles.statCard}>
                 <span className={styles.statNum}>3+</span>
                 <span className={styles.statLabel}>Proyectos listos</span>
               </div>
-              <div className={styles.stat}>
+              <div className={styles.statCard}>
                 <span className={styles.statNum}>IA</span>
                 <span className={styles.statLabel}>Asistido por LLM</span>
               </div>
-              <div className={styles.stat}>
+              <div className={styles.statCard}>
                 <span className={styles.statNum}>100%</span>
                 <span className={styles.statLabel}>Custom code</span>
               </div>
             </div>
           </div>
 
-          {/* Right: Holographic ProfileCard with matias.jpeg + Skills */}
+          {/* Right Column: Holographic ProfileCard with matias.jpeg + Skills */}
           <div className={styles.rightColumn}>
             <div className={styles.photoWrapper}>
               <ProfileCard
@@ -104,7 +106,7 @@ export default function About() {
                 miniAvatarUrl="/matias.jpeg"
                 showUserInfo={true}
                 enableTilt={true}
-                enableMobileTilt={false}
+                enableMobileTilt={true}
                 behindGlowEnabled={true}
                 behindGlowColor="rgba(125, 190, 255, 0.67)"
                 innerGradient="linear-gradient(145deg, #60496e8c 0%, #71C4FF44 100%)"
