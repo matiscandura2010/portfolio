@@ -6,7 +6,7 @@ const projects = [
     description:
       'Sitio web profesional para empresa de servicios técnicos en Chile. Diseño orientado a conversión con información clara de servicios, zona de cobertura y contacto directo.',
     url: 'https://antenasyredes.cl',
-    previewImage: null, // uses iframe
+    previewImage: '/antenasyredes.png',
     tags: ['Next.js', 'React', 'CSS', 'SEO', 'Diseño Web'],
     number: '01',
   },
@@ -17,7 +17,7 @@ const projects = [
     description:
       'E-commerce completo construido sobre Shopify con diseño personalizado. Experiencia de compra optimizada, catálogo de productos y sistema de pagos integrado.',
     url: 'https://fulldeportes-2.myshopify.com/',
-    previewImage: '/fulldeportes.png', // static image (Shopify blocks iframes)
+    previewImage: '/fulldeportes.png',
     tags: ['Shopify', 'Liquid', 'E-commerce', 'UX/UI', 'Diseño Web'],
     number: '02',
   },

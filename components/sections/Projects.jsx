@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic';
 import ProjectCard from '@/components/ui/ProjectCard';
-import GradualBlur from '@/components/react-bits/GradualBlur';
 import projects from '@/data/projects';
 import styles from './Projects.module.css';
 
@@ -11,17 +10,6 @@ const ScrollFloat = dynamic(() => import('@/components/react-bits/ScrollFloat'),
 export default function Projects() {
   return (
     <section id="projects" className={styles.projects}>
-      {/* GradualBlur top transition from Hero */}
-      <GradualBlur
-        target="parent"
-        position="top"
-        height="8rem"
-        strength={2}
-        divCount={6}
-        curve="bezier"
-        opacity={0.9}
-      />
-
       <div className={styles.container}>
         {/* Section label */}
         <div className={styles.label}>
@@ -54,17 +42,6 @@ export default function Projects() {
           ))}
         </div>
       </div>
-
-      {/* GradualBlur bottom */}
-      <GradualBlur
-        target="parent"
-        position="bottom"
-        height="8rem"
-        strength={2}
-        divCount={6}
-        curve="bezier"
-        opacity={0.9}
-      />
     </section>
   );
 }
