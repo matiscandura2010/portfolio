@@ -9,6 +9,7 @@ export default function ProjectCard({ project }) {
   const videoRef = useRef(null);
   const [glow, setGlow] = useState({ x: 50, y: 50 });
   const [hovered, setHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
 
   const handleMouseMove = e => {
@@ -18,7 +19,8 @@ export default function ProjectCard({ project }) {
     setGlow({ x, y });
   };
 
-  const toggleVideoPlay = () => {
+  const toggleVideoPlay = (e) => {
+    e.stopPropagation();
     if (!videoRef.current) return;
     if (videoRef.current.paused) {
       videoRef.current.play();
@@ -32,7 +34,7 @@ export default function ProjectCard({ project }) {
   return (
     <article
       ref={cardRef}
-      className={`${styles.card} ${hovered ? styles.hovered : ''}`}
+      className={`${styles.card} ${hovered ? styles.hovered : ''} ${isExpanded ? styles.cardExpanded : ''}`}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -44,23 +46,143 @@ export default function ProjectCard({ project }) {
       {/* Glow border that follows mouse */}
       <div className={styles.glowBorder} aria-hidden="true" />
 
-      {/* Project number */}
+      {/* Project number watermark */}
       <span className={styles.number}>{project.number}</span>
 
       <div className={styles.inner}>
-        {/* Left: info */}
-        <div className={styles.info}>
-          <div className={styles.tags}>
-            {project.tags.map(tag => (
-              <span key={tag} className={styles.tag}>{tag}</span>
-            ))}
+        {/* Top Header: Project Name & Tagline */}
+        <div className={styles.cardHeader}>
+          <div className={styles.nameRow}>
+            <span className={styles.numberBadge}>{project.number}</span>
+            <h3 className={styles.name}>{project.name}</h3>
           </div>
-
-          <h3 className={styles.name}>{project.name}</h3>
           <p className={styles.tagline}>{project.tagline}</p>
-          <p className={styles.desc}>{project.description}</p>
+        </div>
 
-          {/* Action Link / Video Action */}
+        {/* Center: Live Interactive Preview */}
+        <div className={styles.previewContainer}>
+          {project.videoUrl ? (
+            /* Video preview for unpublished project */
+            <div
+              className={styles.videoWrapper}
+              onClick={toggleVideoPlay}
+              title={isPlaying ? 'Click para pausar' : 'Click para reproducir'}
+            >
+              <video
+                ref={videoRef}
+                src={project.videoUrl}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className={styles.previewVideo}
+              />
+              <div className={styles.videoOverlay}>
+                <div className={styles.videoControlsBadge}>
+                  <span className={styles.recordDot} />
+                  <span>Demo Video · No publicada</span>
+                </div>
+                {!isPlaying && (
+                  <div className={styles.pausedBadge}>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : project.previewImage ? (
+            /* Static image preview (e.g. Shopify that blocks iframes) */
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.imageWrapper}
+            >
+              <Image
+                src={project.previewImage}
+                alt={`Preview de ${project.name}`}
+                fill
+                sizes="(max-width: 900px) 100vw, 50vw"
+                className={styles.previewImg}
+                style={{ objectFit: 'cover', objectPosition: 'top' }}
+              />
+              <div className={styles.iframeOverlay}>
+                <span className={styles.iframeLabel}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                    <polyline points="15,3 21,3 21,9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  Abrir tienda
+                </span>
+              </div>
+            </a>
+          ) : project.url ? (
+            /* Live iframe preview */
+            <div className={styles.iframeWrapper}>
+              <iframe
+                src={project.url}
+                title={`Preview de ${project.name}`}
+                className={styles.iframe}
+                loading="lazy"
+                sandbox="allow-same-origin allow-scripts"
+              />
+              <div className={styles.iframeOverlay}>
+                <span className={styles.iframeLabel}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                    <polyline points="15,3 21,3 21,9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  Interactuar con sitio
+                </span>
+              </div>
+            </div>
+          ) : (
+            <div className={styles.noPreview}>
+              <span className={styles.comingLabel}>En desarrollo</span>
+            </div>
+          )}
+        </div>
+
+        {/* Expand Trigger: "Saber más" */}
+        <div className={styles.expandTriggerWrapper}>
+          <button
+            type="button"
+            className={`${styles.expandBtn} ${isExpanded ? styles.expandBtnActive : ''}`}
+            onClick={() => setIsExpanded(!isExpanded)}
+            aria-expanded={isExpanded}
+          >
+            <span>{isExpanded ? 'Ocultar detalles' : 'Saber más'}</span>
+            <svg
+              className={`${styles.expandIcon} ${isExpanded ? styles.expandIconRotated : ''}`}
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Expandable Information Drawer */}
+        <div className={`${styles.expandableDrawer} ${isExpanded ? styles.drawerOpen : ''}`}>
+          <div className={styles.drawerInner}>
+            <p className={styles.desc}>{project.description}</p>
+            <div className={styles.tags}>
+              {project.tags.map(tag => (
+                <span key={tag} className={styles.tag}>{tag}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Actions: Link / Video */}
+        <div className={styles.bottomBar}>
           {project.url ? (
             <a
               id={`project-link-${project.id}`}
@@ -98,110 +220,6 @@ export default function ProjectCard({ project }) {
             </div>
           ) : (
             <span className={styles.linkDisabled}>Próximamente online</span>
-          )}
-        </div>
-
-        {/* Right: preview */}
-        <div className={styles.preview}>
-          {project.videoUrl ? (
-            /* Video preview for unpublished project */
-            <div
-              className={styles.videoWrapper}
-              onClick={toggleVideoPlay}
-              title={isPlaying ? 'Click para pausar' : 'Click para reproducir'}
-            >
-              <video
-                ref={videoRef}
-                src={project.videoUrl}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className={styles.previewVideo}
-              />
-              <div className={styles.videoOverlay}>
-                <div className={styles.videoControlsBadge}>
-                  <span className={styles.recordDot} />
-                  <span>Demo Video · No publicada</span>
-                </div>
-                {!isPlaying && (
-                  <div className={styles.pausedBadge}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                )}
-              </div>
-            </div>
-          ) : project.previewImage ? (
-            /* Static image preview (e.g. Shopify that blocks iframes) */
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.imageWrapper}
-            >
-              <Image
-                src={project.previewImage}
-                alt={`Preview de ${project.name}`}
-                fill
-                sizes="(max-width: 900px) 100vw, 50vw"
-                className={styles.previewImg}
-                style={{ objectFit: 'cover', objectPosition: 'top' }}
-              />
-              <div className={styles.iframeOverlay}>
-                <span className={styles.iframeLabel}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                    <polyline points="15,3 21,3 21,9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                  Abrir sitio
-                </span>
-              </div>
-            </a>
-          ) : project.url ? (
-            /* Live iframe preview */
-            <div className={styles.iframeWrapper}>
-              <iframe
-                src={project.url}
-                title={`Preview de ${project.name}`}
-                className={styles.iframe}
-                loading="lazy"
-                sandbox="allow-same-origin allow-scripts"
-              />
-              <div className={styles.iframeOverlay}>
-                <span className={styles.iframeLabel}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                    <polyline points="15,3 21,3 21,9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                  Abrir sitio
-                </span>
-              </div>
-            </div>
-          ) : (
-            <div className={styles.noPreview}>
-              <div className={styles.mockBrowser}>
-                <div className={styles.mockBar}>
-                  <div className={styles.mockDots}>
-                    <span /><span /><span />
-                  </div>
-                  <div className={styles.mockUrl}>opticasanantonio.local</div>
-                </div>
-                <div className={styles.mockContent}>
-                  <div className={styles.mockHero} />
-                  <div className={styles.mockLines}>
-                    <div /><div /><div style={{ width: '70%' }} />
-                  </div>
-                  <div className={styles.mockGrid}>
-                    <div /><div /><div />
-                  </div>
-                </div>
-              </div>
-              <span className={styles.comingLabel}>En construcción · Próximamente</span>
-            </div>
           )}
         </div>
       </div>
