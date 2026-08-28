@@ -243,9 +243,26 @@ const ProfileCardComponent = ({
     const pointerLeaveHandler = handlePointerLeave;
     const deviceOrientationHandler = handleDeviceOrientation;
 
+    const pointerDownHandler = event => {
+      const shell = shellRef.current;
+      if (!shell || !tiltEngine) return;
+      shell.classList.add('active');
+      const { x, y } = getOffsets(event, shell);
+      tiltEngine.setTarget(x, y);
+    };
+
+    const pointerUpHandler = () => {
+      const shell = shellRef.current;
+      if (!shell || !tiltEngine) return;
+      tiltEngine.toCenter();
+    };
+
     shell.addEventListener('pointerenter', pointerEnterHandler);
     shell.addEventListener('pointermove', pointerMoveHandler);
     shell.addEventListener('pointerleave', pointerLeaveHandler);
+    shell.addEventListener('pointerdown', pointerDownHandler);
+    shell.addEventListener('pointerup', pointerUpHandler);
+    shell.addEventListener('pointercancel', pointerUpHandler);
 
     const handleClick = () => {
       if (!enableMobileTilt || typeof window === 'undefined' || location.protocol !== 'https:') return;
@@ -275,6 +292,9 @@ const ProfileCardComponent = ({
       shell.removeEventListener('pointerenter', pointerEnterHandler);
       shell.removeEventListener('pointermove', pointerMoveHandler);
       shell.removeEventListener('pointerleave', pointerLeaveHandler);
+      shell.removeEventListener('pointerdown', pointerDownHandler);
+      shell.removeEventListener('pointerup', pointerUpHandler);
+      shell.removeEventListener('pointercancel', pointerUpHandler);
       shell.removeEventListener('click', handleClick);
       if (typeof window !== 'undefined') {
         window.removeEventListener('deviceorientation', deviceOrientationHandler);

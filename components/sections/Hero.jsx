@@ -46,24 +46,31 @@ export default function Hero() {
 
       {/* Content — z-index above blur overlay */}
       <div className={styles.content}>
-        {/* Main headline — WarpText WebGL */}
+        {/* Main headline — Desktop WebGL WarpText / Mobile Clean Static Typography */}
         <h1 className={styles.headline}>
-          <WarpText
-            text={"Matias\nScandura"}
-            color="#f8f5ff"
-            warpStrength={0.08}
-            warpScale={1.7}
-            speed={0.55}
-            pointerInfluence={0.42}
-            pointerStrength={0.38}
-            refraction={0.018}
-            ripple
-            fontSize="clamp(4rem, 17vw, 15rem)"
-            fontWeight={800}
-            lineHeight={0.95}
-            letterSpacing="-0.02em"
-            style={{ height: '520px', width: '100%' }}
-          />
+          <div className={styles.desktopHeadline}>
+            <WarpText
+              text={"Matias\nScandura"}
+              color="#f8f5ff"
+              warpStrength={0.08}
+              warpScale={1.7}
+              speed={0.55}
+              pointerInfluence={0.42}
+              pointerStrength={0.38}
+              refraction={0.018}
+              ripple
+              fontSize="clamp(4rem, 17vw, 15rem)"
+              fontWeight={800}
+              lineHeight={0.95}
+              letterSpacing="-0.02em"
+              style={{ height: '520px', width: '100%' }}
+            />
+          </div>
+          <div className={styles.mobileHeadline}>
+            <span className={styles.mobileName}>
+              Matias<br />Scandura
+            </span>
+          </div>
         </h1>
 
         {/* Sub headline */}

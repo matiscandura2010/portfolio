@@ -30,11 +30,30 @@
   --card-radius: 30px;
 }
 
+.pc-card-wrapper,
+.pc-card-shell,
+.pc-card,
+.pc-card *,
+.avatar,
+.avatar-cutout,
+.pc-inside,
+.pc-user-info,
+.pc-details,
+.pc-details h3,
+.pc-details p {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-drag: none !important;
+}
+
 .pc-card-wrapper {
   perspective: 500px;
   transform: translate3d(0, 0, 0.1px);
   position: relative;
-  touch-action: none;
+  touch-action: pan-y;
   width: 100%;
   max-width: 340px;
 }

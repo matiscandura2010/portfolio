@@ -109,6 +109,47 @@
   overflow: visible;
 }
 
+.desktopHeadline {
+  display: block;
+  width: 100%;
+}
+
+.mobileHeadline {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktopHeadline {
+    display: none !important;
+  }
+
+  .mobileHeadline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1.5rem 0 0.5rem;
+  }
+
+  .mobileName {
+    font-size: clamp(3.2rem, 15vw, 5.2rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: #f8f5ff;
+    text-align: center;
+    text-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+    user-select: none;
+  }
+
+  .headline {
+    margin-bottom: 0 !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
 .name {
   font-size: clamp(4rem, 12vw, 9rem) !important;
   font-weight: 800 !important;
